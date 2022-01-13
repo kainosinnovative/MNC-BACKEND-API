@@ -29,7 +29,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database (with condition).
 exports.findAll = (req, res) => {
-  const title = req.query.title;
+  var a = JSON.parse(req.body.title);
+console.log("title>>>",title);
+  // const title = req.query.title;
 
   Tutorial.getAll(title, (err, data) => {
     if (err)

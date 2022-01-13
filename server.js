@@ -1,30 +1,54 @@
-const express = require("express");
-// const bodyParser = require("body-parser"); /* deprecated */
+
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var mysql = require('mysql');
 const cors = require("cors");
+ 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-const app = express();
+require("./app/routes/tutorial.routes.js")(app);
 
-var corsOptions = {
-  origin: "http://localhost:8080"
-};
 
-app.use(cors(corsOptions));
+
+// app.all('/*', function(request, response, next) {
+//   response.header("Access-Control-Allow-Origin", "*");
+//   response.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+//   response.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+//   if (request.method == 'OPTIONS') {
+//         response.status(200).end();
+//   } else {
+//         next();
+//   }
+// });
+
+// var corsOptions = {
+//   origin: "http://localhost:8080"
+// };
+
+
 
 // parse requests of content-type - application/json
-app.use(express.json()); /* bodyParser.json() is deprecated */
+// app.use(express.json()); /* bodyParser.json() is deprecated */
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
+// app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
 
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application354355." });
 });
 
-require("./app/routes/tutorial.routes.js")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
