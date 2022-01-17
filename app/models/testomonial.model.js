@@ -30,7 +30,7 @@ Testimonial.getAll2 = (result) => {
     console.log("result")
     // alert(newTutorial)
     // sql.query("INSERT INTO test (title) VALUES ('Cardinal')");
-    // sql.query("INSERT INTO testimonial?", newTutorial, (err, res) => {
+    // sql.query("INSERT INTO inserttest?", newTutorial, (err, res) => {
     //   if (err) {
     //     console.log("error: ", err);
     //     result(err, null);

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2022 at 06:49 AM
--- Server version: 5.7.17
--- PHP Version: 5.6.30
+-- Generation Time: Jan 17, 2022 at 08:04 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,44 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `master_prod_type`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE `master_prod_type` (
-  `type_id` int(10) NOT NULL,
-  `type_name` varchar(45) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `master_prod_type`
---
-
-INSERT INTO `master_prod_type` (`type_id`, `type_name`) VALUES
-(1, 'Pen'),
-(2, 'Pencil'),
-(3, 'Scale'),
-(4, 'Sticky Notes');
+CREATE TABLE `customers` (
+  `customer_id` int(10) NOT NULL,
+  `customer_name` varchar(45) NOT NULL,
+  `customer_mobileno` varchar(45) NOT NULL,
+  `customer_email` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_entry`
+-- Table structure for table `inserttest`
 --
 
-CREATE TABLE `product_entry` (
-  `entri_id` int(10) NOT NULL,
-  `type_id` int(10) NOT NULL,
-  `count` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `inserttest` (
+  `id` int(10) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `rating` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `product_entry`
+-- Table structure for table `roles`
 --
 
-INSERT INTO `product_entry` (`entri_id`, `type_id`, `count`) VALUES
-(1, 1, 1),
-(2, 1, 20),
-(3, 3, 2);
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
+(1, 'user', '2022-01-17 12:10:20', '2022-01-17 12:10:20'),
+(2, 'moderator', '2022-01-17 12:10:20', '2022-01-17 12:10:20'),
+(3, 'admin', '2022-01-17 12:10:20', '2022-01-17 12:10:20');
 
 -- --------------------------------------------------------
 
@@ -71,44 +75,19 @@ INSERT INTO `product_entry` (`entri_id`, `type_id`, `count`) VALUES
 --
 
 CREATE TABLE `testimonial` (
-  `testimonial_id` int(10) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `user_title` varchar(45) NOT NULL,
-  `user_description` varchar(100) NOT NULL,
+  `id` int(10) NOT NULL,
   `user_profile` varchar(100) NOT NULL,
-  `testimonial_status` varchar(45) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `name` varchar(45) NOT NULL,
+  `user_title` varchar(100) NOT NULL,
+  `user_description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `testimonial`
 --
 
-INSERT INTO `testimonial` (`testimonial_id`, `name`, `user_title`, `user_description`, `user_profile`, `testimonial_status`) VALUES
-(1, 'kannan', 'chennai', 'this is best service', 'https://mdbootstrap.com/img/Photos/Avatars/img%20(1).webp', 'Active'),
-(2, 'raman', 'madurai', 'good service', 'https://mdbootstrap.com/img/Photos/Avatars/img%20(1).webp', 'Active'),
-(3, 'ganesh', 'chennai', 'desc3', 'https://mdbootstrap.com/img/Photos/Avatars/img%20(1).webp', 'Active');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tutorials`
---
-
-CREATE TABLE `tutorials` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `published` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tutorials`
---
-
-INSERT INTO `tutorials` (`id`, `title`, `description`, `published`) VALUES
-(1, 'tit1', 'desc1', 0),
-(2, 'tit2', 'desc2', 0),
-(3, 'tit3', 'desc3', 0);
+INSERT INTO `testimonial` (`id`, `user_profile`, `name`, `user_title`, `user_description`) VALUES
+(1, 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.w3schools.com%2Fhowto%2Fimg_avatar.png&imgref', 'test name', 'test profile', 'test description');
 
 -- --------------------------------------------------------
 
@@ -117,39 +96,75 @@ INSERT INTO `tutorials` (`id`, `title`, `description`, `published`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `email_address` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `createdAt`, `updatedAt`) VALUES
+(3, 'admin', 'admin@bezkoder.com', '$2a$08$OdL8gIlmv.tOfsejoAcEMu2NsSp577eRWDB7TZRXSdM4rdKdb31Y6', '2022-01-17 06:42:11', '2022-01-17 06:42:11'),
+(4, 'mod', 'mod@bezkoder.com', '$2a$08$kOSKOeSdx/KDZkY2X2Dge.yiLuwlxZkVbZ3.6V0aHgoV9OUoRh3ou', '2022-01-17 06:43:20', '2022-01-17 06:43:20'),
+(5, 'zkoder', 'user@bezkoder.com', '$2a$08$9Ji2QxCxIzksKmsptYhb1ObwQFUP5zlTv0jTCwBLy7wjYQYb7yp6G', '2022-01-17 06:47:34', '2022-01-17 06:47:34'),
+(6, 'test', 'test@bezkoder.com', '$2a$08$sHc8pBzQW6pPz2vgsk4a3erb28lZpsj8BSoAoi5eHGZSrD/LYtt.C', '2022-01-17 06:50:32', '2022-01-17 06:50:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `roleId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`createdAt`, `updatedAt`, `roleId`, `userId`) VALUES
+('2022-01-17 06:43:20', '2022-01-17 06:43:20', 1, 4),
+('2022-01-17 06:47:34', '2022-01-17 06:47:34', 1, 5),
+('2022-01-17 06:42:11', '2022-01-17 06:42:11', 2, 3),
+('2022-01-17 06:43:20', '2022-01-17 06:43:20', 2, 4),
+('2022-01-17 06:47:34', '2022-01-17 06:47:34', 2, 5),
+('2022-01-17 06:50:32', '2022-01-17 06:50:32', 2, 6);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `master_prod_type`
+-- Indexes for table `customers`
 --
-ALTER TABLE `master_prod_type`
-  ADD PRIMARY KEY (`type_id`);
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`customer_id`);
 
 --
--- Indexes for table `product_entry`
+-- Indexes for table `inserttest`
 --
-ALTER TABLE `product_entry`
-  ADD PRIMARY KEY (`entri_id`);
+ALTER TABLE `inserttest`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `testimonial`
 --
 ALTER TABLE `testimonial`
-  ADD PRIMARY KEY (`testimonial_id`);
-
---
--- Indexes for table `tutorials`
---
-ALTER TABLE `tutorials`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -159,34 +174,51 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`roleId`,`userId`),
+  ADD KEY `userId` (`userId`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `master_prod_type`
+-- AUTO_INCREMENT for table `customers`
 --
-ALTER TABLE `master_prod_type`
-  MODIFY `type_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `customers`
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `product_entry`
+-- AUTO_INCREMENT for table `inserttest`
 --
-ALTER TABLE `product_entry`
-  MODIFY `entri_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `inserttest`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `testimonial`
 --
 ALTER TABLE `testimonial`
-  MODIFY `testimonial_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tutorials`
---
-ALTER TABLE `tutorials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

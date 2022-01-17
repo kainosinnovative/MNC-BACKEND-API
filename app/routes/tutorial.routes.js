@@ -14,6 +14,7 @@ module.exports = app => {
 
   const tutorials = require("../controllers/tutorial.controller.js");
   const testimonials = require("../controllers/testimonial.controller.js");
+  const auth = require("../controllers/auth.controller.js");
 
   var router = require("express").Router();
 
@@ -60,6 +61,8 @@ module.exports = app => {
 
 // console.log("testimonials.create>>",testimonials.create)
   router.post("/add-user", testimonials.create);
+
+  router.post("/loginauth", auth.loginauth);
 
   app.use('/', router);
 };
